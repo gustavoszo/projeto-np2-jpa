@@ -1,5 +1,7 @@
 package model.entities;
 
+import java.util.List;
+
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
@@ -7,15 +9,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Table(name = "cursos")
 @Entity
 public class Curso implements Serializable {
+
+	@OneToMany(mappedBy = "curso")
+	List<Disciplina> disciplinas;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_curso;
+	@Column(name = "id_curso")
+	private Integer idCurso;
 
 	@Column
 	private String nome;
@@ -26,17 +33,17 @@ public class Curso implements Serializable {
 	public Curso() {}
 	
 	public Curso(Integer id, String nome, String periodo) {
-		this.id_curso = id;
+		this.idCurso = id;
 		this.nome = nome;
 		this.periodo = periodo;
 	}
 
 	public Integer getId() {
-		return id_curso;
+		return idCurso;
 	}
 
 	public void setId(Integer id) {
-		this.id_curso = id;
+		this.idCurso = id;
 	}
 
 	public String getNome() {

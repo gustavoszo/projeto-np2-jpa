@@ -97,7 +97,7 @@ public class CursoDao implements EntityDao<Curso> {
 			entityManager.getTransaction().commit();
 
 		} catch (Exception e) {
-			throw new JpaException("Ocorreu um erro ao apagar o curso: " + e.getMessage());
+			throw new JpaException("Ocorreu um erro ao tentar apagar o curso: " + e.getMessage());
 		} finally {
 			entityManager.close();
 		}

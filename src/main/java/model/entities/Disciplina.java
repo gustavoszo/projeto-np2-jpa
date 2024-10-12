@@ -1,37 +1,51 @@
 package model.entities;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import java.io.Serializable;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-public class Disciplina {
+@Table(name = "disciplinas")
+@Entity
+public class Disciplina implements Serializable {
 	
-	private Integer id_disciplina;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_disciplina")
+	private Integer idDisciplina;
+
+	@Column
 	private String nome;
+	
+	@Column(name = "carga_horaria")
 	private int cargaHoraria;
 	
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "id_curso")
 	private Curso curso;
 	
 	public Disciplina() {}
 	
 	public Disciplina(Integer id, String nome, int cargaHoraria, Curso curso) {
-		this.id_disciplina = id;
+		this.idDisciplina = id;
 		this.nome = nome;
 		this.cargaHoraria = cargaHoraria;
 		this.curso = curso;
 	}
 
 	public Integer getId() {
-		return id_disciplina;
+		return idDisciplina;
 	}
 
 	public void setId(Integer id) {
-		this.id_disciplina = id;
+		this.idDisciplina = id;
 	}
 
 	public String getNome() {

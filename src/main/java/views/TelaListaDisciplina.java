@@ -15,14 +15,14 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-import controllers.DisciplinaController;
 import model.entities.Curso;
 import model.entities.Disciplina;
+import model.services.DisciplinaService;
 
 public class TelaListaDisciplina extends JFrame {
 
 	private TelaCadastroDisciplina telaCadastroDisciplina;
-	private DisciplinaController disciplinaController;
+	private DisciplinaService disciplinaService;
 	
 	JLabel labelTitulo;
 	JTable table;
@@ -32,7 +32,7 @@ public class TelaListaDisciplina extends JFrame {
 
 	public TelaListaDisciplina(TelaCadastroDisciplina tela) {
 		this.telaCadastroDisciplina = tela;
-		this.disciplinaController = new DisciplinaController();
+		this.disciplinaService = new DisciplinaService();
 		initComponents();
 	}
 
@@ -65,7 +65,7 @@ public class TelaListaDisciplina extends JFrame {
                 return false; // Desabilita a edição das células
             }
         };
-        List<Disciplina> disciplinas = disciplinaController.findAll();
+        List<Disciplina> disciplinas = disciplinaService.findAll();
         disciplinas.forEach(d -> {
         	tableModel.addRow(new Object[] {
         		d.getId(), d.getNome(), d.getCargaHoraria(), d.getCurso().getId(), d.getCurso().getNome()
@@ -122,12 +122,12 @@ public class TelaListaDisciplina extends JFrame {
 		this.telaCadastroDisciplina = telaCadastroDisciplina;
 	}
 
-	public DisciplinaController getDisciplinaController() {
-		return disciplinaController;
+	public DisciplinaService getDisciplinaService() {
+		return disciplinaService;
 	}
 
-	public void setDisciplinaController(DisciplinaController disciplinaController) {
-		this.disciplinaController = disciplinaController;
+	public void setDisciplinaService(DisciplinaService disciplinaService) {
+		this.disciplinaService = disciplinaService;
 	}
 		
 }

@@ -9,10 +9,11 @@ import model.entities.Curso;
 
 public class CursoDao implements EntityDao<Curso> {
 
-	private EntityManager entityManager = JpaUtils.getEntityManager();
+	private EntityManager entityManager;
 
 	@Override
 	public void insert(Curso obj) {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(obj);
@@ -31,11 +32,14 @@ public class CursoDao implements EntityDao<Curso> {
 
 	@Override
 	public void update(Curso obj) {
+		entityManager = JpaUtils.getEntityManager();
 		try {
+			System.out.println(obj.getPeriodo());
 			entityManager.getTransaction().begin();
 			Curso curso = entityManager.find(Curso.class, obj.getId());
 			// passo os attrs de obj para curso. Com isso, o hibernate vai persistir no banco as alteracoes feitas no obj quando for realizado o commit
 			curso.setNome(obj.getNome());
+			curso.setSemestres(obj.getSemestres());
 			curso.setPeriodo(obj.getPeriodo());
 
 			entityManager.getTransaction().commit();
@@ -53,6 +57,7 @@ public class CursoDao implements EntityDao<Curso> {
 
 	@Override
 	public List<Curso> findAll() {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			List<Curso> cursos = entityManager.createQuery("select c from Curso c").getResultList();
@@ -67,6 +72,7 @@ public class CursoDao implements EntityDao<Curso> {
 
 	@Override
 	public Curso findById(String id) {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Curso curso = entityManager.find(Curso.class, Integer.parseInt(id));
@@ -81,6 +87,7 @@ public class CursoDao implements EntityDao<Curso> {
 
 	@Override
 	public void deleteById(String id) {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Curso curso = entityManager.find(Curso.class, Integer.parseInt(id));

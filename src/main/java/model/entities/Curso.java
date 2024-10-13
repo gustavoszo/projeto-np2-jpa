@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "cursos")
 public class Curso implements Serializable {
@@ -24,14 +23,17 @@ public class Curso implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_curso")
 	private Integer idCurso;
+
 	private String nome;
+	private Integer semestres;
 	private String periodo;
 	
 	public Curso() {}
 	
-	public Curso(Integer id, String nome, String periodo) {
+	public Curso(Integer id, String nome, Integer semestres, String periodo) {
 		this.idCurso = id;
 		this.nome = nome;
+		this.semestres = semestres;
 		this.periodo = periodo;
 	}
 
@@ -49,6 +51,14 @@ public class Curso implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public Integer getSemestres() {
+		return this.semestres;
+	}
+
+	public void setSemestres(Integer semestres) {
+		this.semestres = semestres;
 	}
 
 	public String getPeriodo() {

@@ -10,7 +10,6 @@ public class AlunoService {
 	private AlunoDao alunoDao = new AlunoDao();
 
 	public void save(Aluno aluno) {
-		;
 		if (findById(aluno.getCpf()) == null) {
 			System.out.println("inserindo aluno");
 			alunoDao.insert(aluno);

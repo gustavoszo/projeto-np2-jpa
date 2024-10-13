@@ -36,8 +36,13 @@ public class CursoService {
 		ValidationException exception = new ValidationException("Campos inválidos");
 		boolean valid = true;
 		
-		if (curso.getNome() == null) {
-			exception.setError("nome", "Selecione o nome do curso");
+		if (curso.getNome().trim().isEmpty()) {
+			exception.setError("nome", "Informe o nome do curso");
+			valid = false;
+		}
+		
+		if (curso.getSemestres() == null) {
+			exception.setError("semestres", "Informe os semestres");
 			valid = false;
 		}
 		

@@ -12,14 +12,14 @@
         <!-- Configuração da conexão com o banco de dados -->
         <properties>
             <!-- URL do banco de dados -->
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/faculdade"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/projeto_np2"/>
 
             <!-- Driver do banco de dados -->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 
             <!-- Usuário e senha -->
             <property name="jakarta.persistence.jdbc.user" value="root"/>
-            <property name="jakarta.persistence.jdbc.password" value="admin"/>
+            <property name="jakarta.persistence.jdbc.password" value="Gustavo30252015"/>
 
             <!-- Dialeto do Hibernate para o banco de dados -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

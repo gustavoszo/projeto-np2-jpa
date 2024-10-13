@@ -9,10 +9,11 @@ import model.entities.Disciplina;
 
 public class DisciplinaDao implements EntityDao<Disciplina> {
 	
-	private EntityManager entityManager = JpaUtils.getEntityManager();
+	private EntityManager entityManager;
 
 	@Override
 	public void insert(Disciplina obj) {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(obj);
@@ -28,6 +29,7 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 
 	@Override
 	public void update(Disciplina obj) {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, obj.getId());
@@ -47,6 +49,7 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 
 	@Override
 	public List<Disciplina> findAll() {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			List<Disciplina> disciplinas = entityManager.createQuery("select d from Disciplina d").getResultList();
@@ -62,6 +65,7 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 
 	@Override
 	public Disciplina findById(String id) {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, Integer.parseInt(id));
@@ -76,6 +80,7 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 
 	@Override
 	public void deleteById(String id) {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, Integer.parseInt(id));

@@ -4,8 +4,6 @@ import java.util.List;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.TypedQuery;
-import jpa.JpaException;
 import jpa.JpaUtils;
 import model.entities.Aluno;
 

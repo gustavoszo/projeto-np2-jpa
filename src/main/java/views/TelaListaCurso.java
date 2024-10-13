@@ -62,7 +62,7 @@ public class TelaListaCurso extends JFrame {
 		
 		DefaultTableModel tableModel = new DefaultTableModel(
                 new Object[][] {},
-                new String[] { "ID", "Curso", "Periodo" }
+                new String[] { "ID", "Curso", "Semestres", "Periodo" }
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -72,7 +72,7 @@ public class TelaListaCurso extends JFrame {
         
         List<Curso> cursos = cursoService.findAll();
         cursos.forEach(c -> {
-        	tableModel.addRow(new Object[] { c.getId(), c.getNome(), c.getPeriodo() });
+        	tableModel.addRow(new Object[] { c.getId(), c.getNome(), c.getSemestres(), c.getPeriodo() });
         });
         table = new JTable(tableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -104,9 +104,10 @@ public class TelaListaCurso extends JFrame {
 		if (selectedRow != -1) { // Verifica se há uma linha selecionada
 			Integer id = (Integer) table.getValueAt(selectedRow, 0);
 			String curso = (String) table.getValueAt(selectedRow, 1);
-			String periodo = (String) table.getValueAt(selectedRow, 2);
+			Integer semestres = (Integer) table.getValueAt(selectedRow, 2);
+			String periodo = (String) table.getValueAt(selectedRow, 3);
 
-			this.telaCadastroCurso.loadCurso(new Curso(id, curso, periodo));
+			this.telaCadastroCurso.loadCurso(new Curso(id, curso, semestres, periodo));
 			this.dispose();
 			this.telaCadastroCurso.setVisible(true);
 		} else {

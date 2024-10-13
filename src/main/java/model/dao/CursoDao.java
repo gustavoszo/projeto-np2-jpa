@@ -8,19 +8,15 @@ import jpa.JpaUtils;
 import model.entities.Curso;
 
 public class CursoDao implements EntityDao<Curso> {
-	
-	private EntityManager getEntityManager() {
-		return JpaUtils.getEntityManagerFactory().createEntityManager();
-	}
+
+	private EntityManager entityManager = JpaUtils.getEntityManager();
 
 	@Override
 	public void insert(Curso obj) {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(obj);
 			entityManager.getTransaction().commit();
-
 		} catch(Exception e) {
 			if (entityManager.getTransaction().isActive()) {
 				entityManager.getTransaction().rollback();
@@ -35,7 +31,6 @@ public class CursoDao implements EntityDao<Curso> {
 
 	@Override
 	public void update(Curso obj) {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			// Pego o curso através do id
@@ -59,7 +54,6 @@ public class CursoDao implements EntityDao<Curso> {
 
 	@Override
 	public List<Curso> findAll() {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			List<Curso> cursos = entityManager.createQuery("select c from Curso c").getResultList();
@@ -74,7 +68,6 @@ public class CursoDao implements EntityDao<Curso> {
 
 	@Override
 	public Curso findById(String id) {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Curso curso = entityManager.find(Curso.class, Integer.parseInt(id));
@@ -89,7 +82,6 @@ public class CursoDao implements EntityDao<Curso> {
 
 	@Override
 	public void deleteById(String id) {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Curso curso = entityManager.find(Curso.class, Integer.parseInt(id));

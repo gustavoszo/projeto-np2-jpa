@@ -8,11 +8,14 @@ import model.entities.Aluno;
 public class AlunoService {
 	
 	private AlunoDao alunoDao = new AlunoDao();
-	
+
 	public void save(Aluno aluno) {
-		if (aluno.getId() == null) {
+		;
+		if (findById(aluno.getCpf()) == null) {
+			System.out.println("inserindo aluno");
 			alunoDao.insert(aluno);
 		} else {
+			System.out.println("atualizando o aluno");
 			alunoDao.update(aluno);
 		}
 	}
@@ -27,7 +30,7 @@ public class AlunoService {
 	
 	
 	public void delete(Aluno aluno) {
-		alunoDao.deleteById(String.valueOf(aluno.getId()));
+		alunoDao.deleteById(String.valueOf(aluno.getCpf()));
 	}
 
 }

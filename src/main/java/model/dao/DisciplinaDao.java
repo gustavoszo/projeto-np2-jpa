@@ -9,18 +9,14 @@ import model.entities.Disciplina;
 
 public class DisciplinaDao implements EntityDao<Disciplina> {
 	
-	private EntityManager getEntityManager() {
-		return JpaUtils.getEntityManagerFactory().createEntityManager();
-	}
+	private EntityManager entityManager = JpaUtils.getEntityManager();
 
 	@Override
 	public void insert(Disciplina obj) {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(obj);
 			entityManager.getTransaction().commit();
-		
 		} catch(Exception e) {
 			throw new JpaException("Ocorreu um ao tentar salvar a disciplina: " + e.getMessage());
 
@@ -32,7 +28,6 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 
 	@Override
 	public void update(Disciplina obj) {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, obj.getId());
@@ -52,7 +47,6 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 
 	@Override
 	public List<Disciplina> findAll() {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			List<Disciplina> disciplinas = entityManager.createQuery("select d from Disciplina d").getResultList();
@@ -68,7 +62,6 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 
 	@Override
 	public Disciplina findById(String id) {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, Integer.parseInt(id));
@@ -83,7 +76,6 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 
 	@Override
 	public void deleteById(String id) {
-		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, Integer.parseInt(id));

@@ -8,10 +8,10 @@ import model.entities.Professor;
 
 public class ProfessorDao implements EntityDao<Professor> {
 	
-	private EntityManager entityManager;
+	private EntityManager entityManager = JpaUtils.getEntityManager();
 	
 	public void AlunoDaoImpl() {
-		this.entityManager = JpaUtils.getEntityManagerFactory().createEntityManager();
+;
 	}
 
 	@Override

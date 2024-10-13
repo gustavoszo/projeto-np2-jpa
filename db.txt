@@ -5,6 +5,14 @@ CREATE TABLE cursos (
   nome VARCHAR(50),    
   periodo VARCHAR(25));
 
+CREATE TABLE enderecos (
+  id_endereco INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  CEP VARCHAR(8),
+  logradouro VARCHAR(50),
+  numero INT(6),
+  cidade VARCHAR(40),
+  estado VARCHAR(2));
+
 CREATE TABLE disciplinas (
   id_disciplina INT NOT NULL AUTO_INCREMENT PRIMARY KEY,    
   nome VARCHAR(50),    
@@ -17,8 +25,10 @@ CREATE TABLE alunos (
   cpf VARCHAR(11) PRIMARY KEY,    
   email VARCHAR(100),    
   dt_nascimento DATE,    
-  id_curso INT,    
-  FOREIGN KEY(id_curso) REFERENCES cursos(id_curso) ON DELETE CASCADE);
+  id_curso INT,
+  id_endereco INT,
+  FOREIGN KEY(id_curso) REFERENCES cursos(id_curso) ON DELETE CASCADE,
+  FOREIGN KEY(id_endereco) REFERENCES enderecos(id_endereco) ON DELETE SET NULL);
 
 CREATE TABLE professores (    
   cpf VARCHAR(11) NOT NULL PRIMARY KEY,    
@@ -32,10 +42,20 @@ CREATE TABLE professores (
   FOREIGN KEY(id_curso) REFERENCES cursos(id_curso) ON DELETE SET NULL,    
   FOREIGN KEY(id_endereco) REFERENCES enderecos(id_endereco) ON DELETE SET NULL);
 
-CREATE TABLE enderecos (    
-  id_endereco INT NOT NULL PRIMARY KEY AUTO_INCREMENT,    
-  CEP VARCHAR(8),    
-  logradouro VARCHAR(50),    
-  numero INT(6),    
-  cidade VARCHAR(40),    
-  estado VARCHAR(2));
+INSERT INTO cursos (nome, periodo)
+VALUES
+('Engenharia de Software', 'Noturno'),
+('Ciências da Computação', 'Integral'),
+('Administração', 'Matutino'),
+('Direito', 'Noturno'),
+('Engenharia Civil', 'Vespertino');
+
+
+INSERT INTO disciplinas (nome, carga_horaria, id_curso)
+VALUES
+('Algoritmos', 60, 1),
+('Banco de Dados', 80, 1),
+('Gestão de Projetos', 40, 3),
+('Introdução ao Direito', 70, 4),
+('Cálculo Estrutural', 100, 5);
+

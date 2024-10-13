@@ -12,8 +12,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Table(name = "cursos")
+
 @Entity
+@Table(name = "cursos")
 public class Curso implements Serializable {
 
 	@OneToMany(mappedBy = "curso")
@@ -23,11 +24,7 @@ public class Curso implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_curso")
 	private Integer idCurso;
-
-	@Column
 	private String nome;
-	
-	@Column
 	private String periodo;
 	
 	public Curso() {}
@@ -67,4 +64,20 @@ public class Curso implements Serializable {
 		return this.nome + " | " + this.periodo;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Curso curso = (Curso) o;
+
+		// Compare pelo atributo que torna o curso único, como o ID ou o nome
+		return idCurso != null ? idCurso.equals(curso.idCurso) : curso.idCurso == null;
+	}
+
+	@Override
+	public int hashCode() {
+		return idCurso != null ? idCurso.hashCode() : 0;
+	}
+	
 }

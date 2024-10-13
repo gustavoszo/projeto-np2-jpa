@@ -1,8 +1,15 @@
 package model.entities;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "enderecos")
 public class Endereco {
-	
-	private Integer id_endereco;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_endereco")
+	private Integer idEndereco;
 	private String cep;
 	private String logradouro;
 	private int numero;
@@ -11,8 +18,7 @@ public class Endereco {
 	
 	public Endereco() {}
 	
-	public Endereco(Integer id, String cep, String logradouro, int numero, String cidade, String estado) {
-		this.id_endereco = id;
+	public Endereco(String cep, String logradouro, int numero, String cidade, String estado) {
 		this.cep = cep;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -21,11 +27,11 @@ public class Endereco {
 	}
 	
 	public Integer getId() {
-		return id_endereco;
+		return idEndereco;
 	}
 	
 	public void setId(Integer id) {
-		this.id_endereco = id;
+		this.idEndereco = id;
 	}
 	
 	public String getCep() {

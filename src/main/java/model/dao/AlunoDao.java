@@ -11,12 +11,13 @@ import model.entities.Aluno;
 
 public class AlunoDao implements EntityDao<Aluno> {
 	
-	private EntityManager entityManager = JpaUtils.getEntityManager();
+	private EntityManager entityManager;
 	
 	public AlunoDao() {	}
 
 	@Override
 	public void insert(Aluno obj) {
+		entityManager = JpaUtils.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(obj);
@@ -30,6 +31,7 @@ public class AlunoDao implements EntityDao<Aluno> {
 	}
 
 	public void update(Aluno obj) {
+		entityManager = JpaUtils.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		try {
 			transaction.begin();
@@ -54,18 +56,21 @@ public class AlunoDao implements EntityDao<Aluno> {
 
 	@Override
 	public List<Aluno> findAll() {
+		entityManager = JpaUtils.getEntityManager();
 		String jpql = "Select a from Aluno a";
 		return entityManager.createQuery(jpql, Aluno.class).getResultList();
 	}
 
 	@Override
 	public Aluno findById(String id) {
+		entityManager = JpaUtils.getEntityManager();
 		Aluno aluno = entityManager.find(Aluno.class, id);
 		return aluno;
 	}
 
 	@Override
 	public void deleteById(String id) {
+		entityManager = JpaUtils.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		try {
 			transaction.begin();

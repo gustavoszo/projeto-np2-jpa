@@ -9,11 +9,12 @@ import model.entities.Disciplina;
 
 public class DisciplinaDao implements EntityDao<Disciplina> {
 	
-	private EntityManager entityManager = JpaUtils.getEntityManager();
+	private EntityManager entityManager;
 
 	@Override
 	public void insert(Disciplina obj) {
 		try {
+			entityManager = JpaUtils.getEntityManager();
 			entityManager.getTransaction().begin();
 			entityManager.persist(obj);
 			entityManager.getTransaction().commit();
@@ -29,6 +30,7 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 	@Override
 	public void update(Disciplina obj) {
 		try {
+			entityManager = JpaUtils.getEntityManager();
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, obj.getId());
 			disciplina.setNome(obj.getNome());
@@ -48,6 +50,7 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 	@Override
 	public List<Disciplina> findAll() {
 		try {
+			entityManager = JpaUtils.getEntityManager();
 			entityManager.getTransaction().begin();
 			List<Disciplina> disciplinas = entityManager.createQuery("select d from Disciplina d").getResultList();
 			return disciplinas;
@@ -63,6 +66,7 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 	@Override
 	public Disciplina findById(String id) {
 		try {
+			entityManager = JpaUtils.getEntityManager();
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, Integer.parseInt(id));
 			return disciplina;
@@ -77,6 +81,7 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 	@Override
 	public void deleteById(String id) {
 		try {
+			entityManager = JpaUtils.getEntityManager();
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, Integer.parseInt(id));
 			entityManager.remove(disciplina);

@@ -17,13 +17,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-import controllers.CursoController;
 import model.entities.Curso;
+import model.services.CursoService;
 
 public class TelaListaCurso extends JFrame {
 
     private TelaCadastroCurso telaCadastroCurso;
-    private CursoController cursoController;
+    private CursoService cursoService;
     
     // Components
     JTable table;
@@ -34,7 +34,7 @@ public class TelaListaCurso extends JFrame {
 
     public TelaListaCurso(TelaCadastroCurso tela) {
         this.telaCadastroCurso = tela;
-        this.cursoController = new CursoController();
+        this.cursoService = new CursoService();
         initComponents();
     }
 
@@ -70,7 +70,7 @@ public class TelaListaCurso extends JFrame {
             }
         };
         
-        List<Curso> cursos = cursoController.findAll();
+        List<Curso> cursos = cursoService.findAll();
         cursos.forEach(c -> {
         	tableModel.addRow(new Object[] { c.getId(), c.getNome(), c.getPeriodo() });
         });
@@ -124,12 +124,12 @@ public class TelaListaCurso extends JFrame {
 		this.telaCadastroCurso = telaCadastroCurso;
 	}
 
-	public CursoController getCursoController() {
-		return cursoController;
+	public CursoService getCursoService() {
+		return cursoService;
 	}
 
-	public void setCursoController(CursoController cursoController) {
-		this.cursoController = cursoController;
+	public void setCursoService(CursoService cursoService) {
+		this.cursoService = cursoService;
 	}
     
     

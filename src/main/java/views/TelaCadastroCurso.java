@@ -18,16 +18,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 
-import controllers.CursoController;
 import jpa.JpaException;
 import model.entities.Curso;
 import model.exceptions.ValidationException;
+import model.services.CursoService;
 
 public class TelaCadastroCurso extends JFrame {
 
 	private TelaHome home;
     private Curso curso;
-    private CursoController cursoController;
+    private CursoService cursoService;
     
     // Components
     JButton btnSalvar, btnLimpar, btnConsultar, btnDeletar;
@@ -148,7 +148,7 @@ public class TelaCadastroCurso extends JFrame {
         	if (confirm != JOptionPane.YES_OPTION) return;
         	
         	try {
-        		cursoController.delete(this.curso);        	
+        		cursoService.delete(this.curso);        	
         		JOptionPane.showMessageDialog(null, "Curso apagado com suceso!");
         		btnLimparActionListener(e);
         		unloadCurso();
@@ -194,7 +194,7 @@ public class TelaCadastroCurso extends JFrame {
     	Integer id = curso.getId();
     	
     	try {
-    		cursoController.save(curso);
+    		cursoService.save(curso);
     		
     		if (id == null) {
     			JOptionPane.showMessageDialog(null, "Curso cadastro com sucesso!");
@@ -271,12 +271,12 @@ public class TelaCadastroCurso extends JFrame {
 		this.curso = curso;
 	}
 
-	public CursoController getCursoController() {
-		return cursoController;
+	public CursoService getCursoService() {
+		return cursoService;
 	}
 
-	public void setCursoController(CursoController cursoController) {
-		this.cursoController = cursoController;
+	public void setCursoService(CursoService cursoService) {
+		this.cursoService = cursoService;
 	}
 	
 	

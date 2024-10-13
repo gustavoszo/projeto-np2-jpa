@@ -74,9 +74,5 @@ public class TelaLogin extends JFrame implements ActionListener {
 		}
 	}
 
-	public static void main(String[] args) {
-		TelaLogin telaLogin = new TelaLogin();
-		telaLogin.setVisible(true);
-	}
 }
 

@@ -20,18 +20,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import controllers.DisciplinaController;
 import jpa.JpaException;
 import model.entities.Curso;
 import model.entities.Disciplina;
 import model.exceptions.ValidationException;
 import model.services.CursoService;
+import model.services.DisciplinaService;
 
 public class TelaCadastroDisciplina extends JFrame {
 
     private TelaHome home;
     private Disciplina disciplina;
-    private DisciplinaController disciplinaController;
+    private DisciplinaService disciplinaService;
     private CursoService cursoService;
     private List<Curso> cursos;
     
@@ -147,7 +147,7 @@ public class TelaCadastroDisciplina extends JFrame {
 				return;
 
 			try {
-				disciplinaController.delete(this.disciplina);
+				disciplinaService.delete(this.disciplina);
 				JOptionPane.showMessageDialog(null, "Disciplina apagada com suceso!");
 				btnLimparActionListener(e);
 				unloadDisciplina();
@@ -192,7 +192,7 @@ public class TelaCadastroDisciplina extends JFrame {
     	Integer id = disciplina.getId();
     	
     	try {
-    		disciplinaController.save(disciplina);
+    		disciplinaService.save(disciplina);
     		
     		if (id == null) {
     			JOptionPane.showMessageDialog(null, "Disciplina cadastrada com sucesso!");
@@ -270,12 +270,12 @@ public class TelaCadastroDisciplina extends JFrame {
 		this.disciplina = disciplina;
 	}
 
-	public DisciplinaController getDisciplinaController() {
-		return disciplinaController;
+	public DisciplinaService getDisciplinaService() {
+		return disciplinaService;
 	}
 
-	public void setDisciplinaController(DisciplinaController disciplinaController) {
-		this.disciplinaController = disciplinaController;
+	public void setDisciplinaService(DisciplinaService disciplinaService) {
+		this.disciplinaService = disciplinaService;
 	}
 
 	public CursoService getCursoService() {

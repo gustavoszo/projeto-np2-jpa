@@ -79,7 +79,9 @@ public class DisciplinaDao implements EntityDao<Disciplina> {
 		try {
 			entityManager.getTransaction().begin();
 			Disciplina disciplina = entityManager.find(Disciplina.class, Integer.parseInt(id));
-			entityManager.remove(disciplina);
+			if (disciplina != null) {
+				entityManager.remove(disciplina);
+			}
 
 			entityManager.getTransaction().commit();
 

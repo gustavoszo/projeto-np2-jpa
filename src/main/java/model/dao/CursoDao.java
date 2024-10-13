@@ -33,7 +33,6 @@ public class CursoDao implements EntityDao<Curso> {
 	public void update(Curso obj) {
 		try {
 			entityManager.getTransaction().begin();
-			// Pego o curso através do id
 			Curso curso = entityManager.find(Curso.class, obj.getId());
 			// passo os attrs de obj para curso. Com isso, o hibernate vai persistir no banco as alteracoes feitas no obj quando for realizado o commit
 			curso.setNome(obj.getNome());
@@ -85,7 +84,9 @@ public class CursoDao implements EntityDao<Curso> {
 		try {
 			entityManager.getTransaction().begin();
 			Curso curso = entityManager.find(Curso.class, Integer.parseInt(id));
-			entityManager.remove(curso);
+			if (curso != null) {
+				entityManager.remove(curso);
+			}
 			entityManager.getTransaction().commit();
 
 		} catch (Exception e) {

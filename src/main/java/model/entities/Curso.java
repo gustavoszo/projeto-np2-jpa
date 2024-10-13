@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 public class Curso implements Serializable {
 
 	@OneToMany(mappedBy = "curso")
-	List<Disciplina> disciplinas;
+	private List<Disciplina> disciplinas;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +59,14 @@ public class Curso implements Serializable {
 		this.periodo = periodo;
 	}
 	
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
 	@Override
 	public String toString() {
 		return this.nome + " | " + this.periodo;

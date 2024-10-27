@@ -10,13 +10,24 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import org.mindrot.jbcrypt.BCrypt;
+
+import jpa.JpaException;
+import model.entities.Usuario;
+import model.services.UsuarioService;
+
 public class TelaLogin extends JFrame implements ActionListener {
+	
+	private UsuarioService usuarioService;
+
 	JLabel user, senha;
 	JTextField userTextField;
 	JButton login, registro;
 	JPasswordField senhaTextField;
 
 	public TelaLogin() {
+		this.usuarioService = new UsuarioService();
+
 		setTitle("LOGIN");
 		setLayout(null);
 
@@ -61,17 +72,35 @@ public class TelaLogin extends JFrame implements ActionListener {
 			String userText = userTextField.getText();
 			String senhaText = new String(senhaTextField.getPassword());
 
-			if ("admin".equals(userText) && "admin".equals(senhaText)) {
-				new TelaHome().setVisible(true);
-				this.dispose();
+			try {
+				Usuario usuario = usuarioService.findByUsername(userText);
+				if (usuario != null) {
+					if (BCrypt.checkpw(senhaText, usuario.getSenha())) {
+						new TelaHome().setVisible(true);
+						this.dispose();
+						return;
+					}	
+				}	
+				JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválido(s)");
+
+			} catch(JpaException f) {
+				JOptionPane.showMessageDialog(null, f.getMessage());
 			}
 
-			else {
-				JOptionPane.showMessageDialog(this, "Usuário e/ou senha inválido(s)");
-				userTextField.setText("");
-				senhaTextField.setText("");
-			}
+		} else {
+			TelaRegistro telaRegistro = new TelaRegistro();
+			telaRegistro.setUsuarioService(new UsuarioService());
+			telaRegistro.setVisible(true);
+			this.dispose();
 		}
+	}
+
+	public UsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 	}
 
 }

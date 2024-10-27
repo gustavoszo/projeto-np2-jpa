@@ -1,8 +1,9 @@
 package model.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Professor {
+public class Professor implements Serializable {
 	
 	private Integer id_professor;
 	private String nome;

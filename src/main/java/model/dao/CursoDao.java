@@ -59,7 +59,7 @@ public class CursoDao implements EntityDao<Curso> {
 		try {
 			entityManager = JpaUtils.getEntityManager();
 			entityManager.getTransaction().begin();
-			List<Curso> cursos = entityManager.createQuery("select c from Curso c").getResultList();
+			List<Curso> cursos = entityManager.createQuery("select c from Curso c", Curso.class).getResultList();
 			return cursos;
 
 		} catch (Exception e) {

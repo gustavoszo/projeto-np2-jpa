@@ -19,7 +19,7 @@ public class TelaHome extends JFrame implements ActionListener {
 
     JMenuBar bMenu;
     JMenu menu1, menu2, menu3;
-    JMenuItem menuCurso, menuDisciplina, menuAluno, menuProfessor, m5, m6, m7, m8, m9, m10, m11, m12;
+    JMenuItem menuCurso, menuDisciplina, menuAluno, menuProfessor, menuSair, m6, m7, m8, m9, m10, m11, m12;
 
     public TelaHome() {
         initComponents();
@@ -56,7 +56,11 @@ public class TelaHome extends JFrame implements ActionListener {
         menu1.add(menuDisciplina);
         menu1.add(menuAluno);
         menu1.add(menuProfessor);
-
+        
+        menu2 = new JMenu("Conta");
+        menuSair = new JMenuItem("Sair");
+        menuSair.addActionListener(this);
+        menu2.add(menuSair);
         /*
         m6 = new JMenuItem("Disciplinas");
         m6.addActionListener(this);
@@ -93,6 +97,7 @@ public class TelaHome extends JFrame implements ActionListener {
 
         bMenu = new JMenuBar();
         bMenu.add(menu1);
+        bMenu.add(menu2);
 
         setJMenuBar(bMenu);
     }
@@ -123,6 +128,11 @@ public class TelaHome extends JFrame implements ActionListener {
         if (e.getSource() == menuProfessor) {
         	new TelaCadastroProfessor(this).setVisible(true);
         	this.setVisible(false);
+        }
+        
+        if (e.getSource() == menuSair) {
+        	new TelaLogin().setVisible(true);
+        	this.dispose();
         }
     }
 

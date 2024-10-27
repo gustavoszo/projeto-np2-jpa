@@ -19,7 +19,7 @@ public class TelaHome extends JFrame implements ActionListener {
 
     JMenuBar bMenu;
     JMenu menu1, menu2, menu3;
-    JMenuItem menuCurso, menuDisciplina, menuAluno, menuProfessor, menuSair, m6, m7, m8, m9, m10, m11, m12;
+    JMenuItem menuCurso, menuDisciplina, menuAluno, menuProfessor, menuSair, menuCursoDisciplinas, m7, m8, m9, m10, m11, m12;
 
     public TelaHome() {
         initComponents();
@@ -57,10 +57,15 @@ public class TelaHome extends JFrame implements ActionListener {
         menu1.add(menuAluno);
         menu1.add(menuProfessor);
         
-        menu2 = new JMenu("Conta");
+        menu2 = new JMenu("Consulta");
+        menuCursoDisciplinas = new JMenuItem("Curso/Disciplinas");
+        menuCursoDisciplinas.addActionListener(this);
+        menu2.add(menuCursoDisciplinas);
+
+        menu3 = new JMenu("Conta");
         menuSair = new JMenuItem("Sair");
         menuSair.addActionListener(this);
-        menu2.add(menuSair);
+        menu3.add(menuSair);
         /*
         m6 = new JMenuItem("Disciplinas");
         m6.addActionListener(this);
@@ -98,6 +103,7 @@ public class TelaHome extends JFrame implements ActionListener {
         bMenu = new JMenuBar();
         bMenu.add(menu1);
         bMenu.add(menu2);
+        bMenu.add(menu3);
 
         setJMenuBar(bMenu);
     }
@@ -133,6 +139,13 @@ public class TelaHome extends JFrame implements ActionListener {
         if (e.getSource() == menuSair) {
         	new TelaLogin().setVisible(true);
         	this.dispose();
+        }
+        
+        if (e.getSource() == menuCursoDisciplinas) {
+            TelaCursoDisciplinas telaCursoDisciplinas = new TelaCursoDisciplinas(this);
+            telaCursoDisciplinas.setCursoService(new CursoService());
+        	telaCursoDisciplinas.setVisible(true);
+        	this.setVisible(false);
         }
     }
 

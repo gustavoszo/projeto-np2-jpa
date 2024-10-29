@@ -1,18 +1,28 @@
 package views;
 
-import javax.swing.*;
-
-import java.awt.Font;
 import java.util.List;
-import java.awt.event.ActionEvent;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+
+import model.entities.Aluno;
 import model.entities.Curso;
-import model.entities.Disciplina;
 import model.services.CursoService;
 
-public class TelaCursoDisciplinas extends JFrame {
+public class TelaCursoAlunos extends JFrame {
 
     private TelaHome home;
     private CursoService cursoService;
@@ -27,14 +37,14 @@ public class TelaCursoDisciplinas extends JFrame {
     JMenu menuHome;
     JMenuItem menuItem;
 
-    public TelaCursoDisciplinas(TelaHome tela) {
+    public TelaCursoAlunos(TelaHome tela) {
         this.home = tela;
         this.cursoService = new CursoService();
         initComponents();
     }
 
     public void initComponents() {
-        setTitle("Disciplinas do curso");
+        setTitle("Alunos do curso");
         setResizable(false);
         setSize(630, 670);
         setLocation(400, 250);
@@ -64,14 +74,14 @@ public class TelaCursoDisciplinas extends JFrame {
             comboBoxCursoActionListener(e);
         });
 
-        labelTitulo = new JLabel("Disciplinas do curso");
+        labelTitulo = new JLabel("Alunos do curso");
         labelTitulo.setFont(new Font("calibri", Font.BOLD, 20));
 		labelTitulo.setLocation(90, 100);
-		labelTitulo.setSize(450, 30);
+		labelTitulo.setSize(500, 30);
 		
 	    tableModel = new DefaultTableModel(
                 new Object[][] {},
-                new String[] { "ID", "Disciplina", "Carga Horária"}
+                new String[] { "Nome", "Email", "CPF"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -97,12 +107,12 @@ public class TelaCursoDisciplinas extends JFrame {
     private void comboBoxCursoActionListener(ActionEvent e) {
         tableModel.setNumRows(0);
         Curso curso = (Curso) comboBoxCurso.getSelectedItem();
-        labelTitulo.setText("Disciplinas do curso " + curso);
-        List<Disciplina> disciplinas = curso.getDisciplinas();
+        labelTitulo.setText("Alunos do curso " + curso);
+        List<Aluno> alunos = curso.getAlunos();
 
         
-        disciplinas.forEach(d -> {
-        	tableModel.addRow(new Object[] { d.getId(), d.getNome(), d.getCargaHoraria() });
+        alunos.forEach(a-> {
+        	tableModel.addRow(new Object[] { a.getNome(), a.getEmail(), a.getCpf() });
         });
         table.setModel(tableModel);
     }

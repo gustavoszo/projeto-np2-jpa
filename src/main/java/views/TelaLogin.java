@@ -28,7 +28,7 @@ public class TelaLogin extends JFrame implements ActionListener {
 	public TelaLogin() {
 		this.usuarioService = new UsuarioService();
 
-		setTitle("LOGIN");
+		setTitle("Login");
 		setLayout(null);
 
 		user = new JLabel("Usuário");

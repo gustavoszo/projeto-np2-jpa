@@ -103,6 +103,8 @@ public class TelaRegistro extends JFrame implements ActionListener {
 			try {
                 usuarioService.save(usuario);
 				JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+				new TelaLogin().setVisible(true);
+				this.dispose();
 			} catch(JpaException f) {
 				JOptionPane.showMessageDialog(null, f.getMessage());
 			}	

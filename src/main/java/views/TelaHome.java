@@ -19,7 +19,7 @@ public class TelaHome extends JFrame implements ActionListener {
 
     JMenuBar bMenu;
     JMenu menu1, menu2, menu3;
-    JMenuItem menuCurso, menuDisciplina, menuAluno, menuProfessor, menuSair, menuCursoDisciplinas, m7, m8, m9, m10, m11, m12;
+    JMenuItem menuCurso, menuDisciplina, menuAluno, menuProfessor, menuSair, menuCursoDisciplinas, menuCursoAlunos, menuCursoProfessores;
 
     public TelaHome() {
         initComponents();
@@ -61,45 +61,18 @@ public class TelaHome extends JFrame implements ActionListener {
         menuCursoDisciplinas = new JMenuItem("Curso/Disciplinas");
         menuCursoDisciplinas.addActionListener(this);
         menu2.add(menuCursoDisciplinas);
+        menuCursoAlunos = new JMenuItem("Curso/Alunos");
+        menuCursoAlunos.addActionListener(this);
+        menu2.add(menuCursoAlunos);
+        menuCursoProfessores = new JMenuItem("Curso/Professores");
+        menuCursoProfessores.addActionListener(this);
+        menu2.add(menuCursoProfessores);
 
         menu3 = new JMenu("Conta");
         menuSair = new JMenuItem("Sair");
         menuSair.addActionListener(this);
         menu3.add(menuSair);
-        /*
-        m6 = new JMenuItem("Disciplinas");
-        m6.addActionListener(this);
-
-        m7 = new JMenuItem("Aluno");
-        m7.addActionListener(this);
-
-        m8 = new JMenuItem("Professores");
-        m8.addActionListener(this);
-
-        m9 = new JMenuItem("Cursos/Professores");
-        m9.addActionListener(this);
-
-        m10 = new JMenuItem("Cursos/Disciplinas");
-        m10.addActionListener(this);
-
-        m11 = new JMenuItem("Professores/Disciplinas");
-        m11.addActionListener(this);
-
-        menu2.add(m5);
-        menu2.add(m6);
-        menu2.add(m7);
-        menu2.add(m8);
-        menu2.addSeparator();
-        menu2.add(m9);
-        menu2.add(m10);
-        menu2.add(m11);
-
-        menu3 = new JMenu("SAIR");
-        m12 = new JMenuItem("SAIR");
-        m12.addActionListener(this);
-        menu3.add(m12);
-        */
-
+  
         bMenu = new JMenuBar();
         bMenu.add(menu1);
         bMenu.add(menu2);
@@ -145,6 +118,18 @@ public class TelaHome extends JFrame implements ActionListener {
             TelaCursoDisciplinas telaCursoDisciplinas = new TelaCursoDisciplinas(this);
             telaCursoDisciplinas.setCursoService(new CursoService());
         	telaCursoDisciplinas.setVisible(true);
+        	this.setVisible(false);
+        }
+        
+        if (e.getSource() == menuCursoAlunos) {
+            TelaCursoAlunos telaCursoAlunos = new TelaCursoAlunos(this);
+        	telaCursoAlunos.setVisible(true);
+        	this.setVisible(false);
+        }
+        
+        if (e.getSource() == menuCursoProfessores) {
+            TelaCursoProfessores telaCursoProfessores = new TelaCursoProfessores(this);
+        	telaCursoProfessores.setVisible(true);
         	this.setVisible(false);
         }
     }

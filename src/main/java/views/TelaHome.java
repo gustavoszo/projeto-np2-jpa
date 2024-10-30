@@ -12,8 +12,11 @@ import javax.swing.JMenuItem;
 
 import model.entities.Curso;
 import model.entities.Disciplina;
+import model.entities.Professor;
 import model.services.CursoService;
 import model.services.DisciplinaService;
+import model.services.ProfessorService;
+import model.services.ProfessorService;
 
 public class TelaHome extends JFrame implements ActionListener {
 
@@ -132,7 +135,10 @@ public class TelaHome extends JFrame implements ActionListener {
         }
         
         if (e.getSource() == menuProfessor) {
-        	new TelaCadastroProfessor(this).setVisible(true);
+        	TelaCadastroProfessor telaCadastroProfessor = new TelaCadastroProfessor(this);
+        	telaCadastroProfessor.setProfessorService(new ProfessorService());
+        	telaCadastroProfessor.setProfessor(new Professor());
+        	telaCadastroProfessor.setVisible(true);
         	this.setVisible(false);
         }
         

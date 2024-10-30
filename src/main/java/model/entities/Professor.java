@@ -3,35 +3,45 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+@Entity
+@Table(name= "professores")
 public class Professor implements Serializable {
 	
-	private Integer id_professor;
-	private String nome;
+	@Id
 	private String cpf;
+	private String nome;
+	private String email;
+	@Column(name= "dt_nascimento")
 	private Date dtNascimento;
+	@ManyToOne
+	@JoinColumn(name= "id_curso")
 	private Curso curso;
+	@ManyToOne
+	@JoinColumn(name= "id_disciplina")
 	private Disciplina disciplina;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name= "id_endereco")
 	private Endereco endereco;
 	
 	public Professor() {}
 	
-	public Professor(Integer id, String nome, String cpf, Date dtNascimento, Curso curso, Disciplina disciplina,
+	public Professor(String cpf, String nome, String email, Date dtNascimento, Curso curso, Disciplina disciplina,
 			Endereco endereco) {
-		this.id_professor = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dtNascimento = dtNascimento;
 		this.curso = curso;
 		this.disciplina = disciplina;
 		this.endereco = endereco;
-	}
-
-	public Integer getId() {
-		return id_professor;
-	}
-
-	public void setId(Integer id) {
-		this.id_professor = id;
+		this.email = email;
 	}
 
 	public String getNome() {
@@ -85,6 +95,24 @@ public class Professor implements Serializable {
 	@Override
 	public String toString() {
 		return this.nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public void setProfessor(String cpf, String nome, String email, Date dtNascimento, Endereco endereco, Curso curso, Disciplina disciplina) {
+		this.setNome(nome);
+		this.setCpf(cpf);
+		this.setDisciplina(disciplina);
+		this.setDtNascimento(dtNascimento);
+		this.setEmail(email);
+		this.setEndereco(endereco);
+		this.setCurso(curso);
 	}
 
 }

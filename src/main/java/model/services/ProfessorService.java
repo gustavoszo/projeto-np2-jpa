@@ -10,9 +10,11 @@ public class ProfessorService {
 	private ProfessorDao professorDao = new ProfessorDao();
 	
 	public void save(Professor professor) {
-		if (professor.getId() == null) {
+		if (findById(professor.getCpf()) == null) {
+			System.out.println("inserindo professor");
 			professorDao.insert(professor);
 		} else {
+			System.out.println("atualizando o professor");
 			professorDao.update(professor);
 		}
 	}
@@ -26,7 +28,7 @@ public class ProfessorService {
 	}
 	
 	public void delete(Professor professor) {
-		professorDao.deleteById(String.valueOf(professor.getId()));
+		professorDao.deleteById(String.valueOf(professor.getCpf()));
 	}
 
 	

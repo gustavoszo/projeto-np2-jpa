@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.text.MaskFormatter;
@@ -37,6 +38,7 @@ public class TelaCadastroProfessor extends JFrame {
     private ProfessorService professorService;
 
 	JLabel labelTitulo, labelCpf, labelNome, labelDtNascimento, labelEmail, labelCep, labelLogradouro, labelNumero, labelCidade, labelEstado, labelCurso, labelDisciplina;
+	JLabel labelErrorTitulo, labelErrorCpf, labelErrorNome, labelErrorDtNascimento, labelErrorEmail, labelErrorCep, labelErrorLogradouro, labelErrorNumero, labelErrorCidade, labelErrorEstado, labelErrorCurso, labelErrorDisciplina;
     JTextField txtNome, txtCpf, txtEmail, txtCep, txtLogradouro, txtNumero, txtCidade;
     JFormattedTextField txtDtNascimento;
     JComboBox<String> comboBoxEstados;
@@ -232,28 +234,59 @@ public class TelaCadastroProfessor extends JFrame {
         DefaultComboBoxModel<Disciplina> modelDisciplina = new DefaultComboBoxModel<Disciplina>();
 
         Curso curso = (Curso) comboBoxCursos.getSelectedItem();
-
-        List<Disciplina> listaDisciplinas = curso.getDisciplinas();
-        listaDisciplinas.forEach(d -> modelDisciplina.addElement(d));
-        comboBoxDisciplinas.setModel(modelDisciplina);
+        if (curso != null) {
+        	List<Disciplina> listaDisciplinas = curso.getDisciplinas();
+        	listaDisciplinas.forEach(d -> modelDisciplina.addElement(d));
+        	comboBoxDisciplinas.setModel(modelDisciplina);
+        }
     }
 
     private void salvar(ActionEvent e) {
+    	Date dataNasc = null;
+    	Disciplina disciplina = null;
+    	Curso curso = null;
+    	
+    	boolean valid = true;
     	
     	if(professor != null) {
 	        String nome = txtNome.getText();
+	        if(nome.isBlank()) {
+	        	valid = false;
+	        }
+	        
 	        String cpf = txtCpf.getText();
+	        if(cpf.isBlank()) {
+	        	valid = false;
+	        }
+	        
 	        String email = txtEmail.getText();
-	        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-	        Date dataNasc = null;
-			try {
-				dataNasc = formatoData.parse(txtDtNascimento.getText());
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-	        Disciplina disciplina = (Disciplina) comboBoxDisciplinas.getSelectedItem();
-	        Curso curso = (Curso) comboBoxCursos.getSelectedItem();
+	        if(email.isBlank()) {
+	        	valid = false;
+	        }
+	        
+	        if(!txtDtNascimento.getText().isBlank()) {
+		        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					dataNasc = formatoData.parse(txtDtNascimento.getText());
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					valid = false;
+				}
+	        }
+	        else {
+	        	valid = false;
+	        }
+	        
+	        if(comboBoxDisciplinas.getSelectedItem() != null) {
+	        	curso = (Curso) comboBoxCursos.getSelectedItem();
+	        	disciplina = (Disciplina) comboBoxDisciplinas.getSelectedItem();
+	        }
+	        else {
+	        	valid = false;
+	        }
+		    
+	        if (!valid) return;
 	        
 	        Endereco endereco = new Endereco();
 	        endereco.setCep(txtCep.getText());
@@ -265,9 +298,10 @@ public class TelaCadastroProfessor extends JFrame {
 	        professor.setProfessor(cpf, nome, email, dataNasc, endereco, curso, disciplina);
 	        try {
 	        	professorService.save(professor);
+	        	JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
 	        	limpar();
 			} catch (JpaException jpae) {
-				System.out.println(jpae);
+				JOptionPane.showMessageDialog(null, jpae.getMessage());
 			}
     	}
     }

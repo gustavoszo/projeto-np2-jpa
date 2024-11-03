@@ -107,7 +107,7 @@ public class TelaCursoAlunos extends JFrame {
     private void comboBoxCursoActionListener(ActionEvent e) {
         tableModel.setNumRows(0);
         Curso curso = (Curso) comboBoxCurso.getSelectedItem();
-        labelTitulo.setText("Alunos do curso " + curso);
+        labelTitulo.setText("Alunos do curso - " + curso);
         List<Aluno> alunos = curso.getAlunos();
 
         

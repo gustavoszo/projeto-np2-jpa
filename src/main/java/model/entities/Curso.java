@@ -21,6 +21,9 @@ public class Curso implements Serializable {
 
 	@OneToMany(mappedBy = "curso")
 	private List<Aluno> alunos;
+
+	@OneToMany(mappedBy = "curso")
+	private List<Professor> professores;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,6 +89,14 @@ public class Curso implements Serializable {
 
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
+	}
+	
+	public List<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
 	}
 
 	@Override

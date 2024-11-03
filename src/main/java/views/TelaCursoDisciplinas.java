@@ -97,7 +97,7 @@ public class TelaCursoDisciplinas extends JFrame {
     private void comboBoxCursoActionListener(ActionEvent e) {
         tableModel.setNumRows(0);
         Curso curso = (Curso) comboBoxCurso.getSelectedItem();
-        labelTitulo.setText("Disciplinas do curso " + curso);
+        labelTitulo.setText("Disciplinas do curso - " + curso);
         List<Disciplina> disciplinas = curso.getDisciplinas();
 
         

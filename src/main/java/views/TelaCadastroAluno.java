@@ -39,7 +39,7 @@ public class TelaCadastroAluno extends JFrame {
     }
 
     private void initComponents() {
-        setBounds(400, 250, 550, 700); // Ajustei a altura da tela para comportar mais campos
+        setBounds(400, 150, 425, 700); // Ajustei a altura da tela para comportar mais campos
         getContentPane().setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +54,6 @@ public class TelaCadastroAluno extends JFrame {
         // Labels
         nome = new JLabel("Nome:");
         nome.setBounds(30, 30, 100, 25);
-
         cpf = new JLabel("CPF:");
         cpf.setBounds(30, 70, 100, 25);
 

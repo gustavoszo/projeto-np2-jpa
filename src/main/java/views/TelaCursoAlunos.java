@@ -47,7 +47,7 @@ public class TelaCursoAlunos extends JFrame {
         setTitle("Alunos do curso");
         setResizable(false);
         setSize(630, 670);
-        setLocation(400, 250);
+        setLocation(400, 150);
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
@@ -107,7 +107,7 @@ public class TelaCursoAlunos extends JFrame {
     private void comboBoxCursoActionListener(ActionEvent e) {
         tableModel.setNumRows(0);
         Curso curso = (Curso) comboBoxCurso.getSelectedItem();
-        labelTitulo.setText("Alunos do curso " + curso);
+        labelTitulo.setText("Alunos do curso - " + curso);
         List<Aluno> alunos = curso.getAlunos();
 
         

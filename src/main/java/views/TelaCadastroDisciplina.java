@@ -52,7 +52,7 @@ public class TelaCadastroDisciplina extends JFrame {
 
     public void initComponents() {
         setTitle("Cadastro de Disciplina");
-        setSize(630, 400);
+        setSize(450, 400);
         setLocation(400, 250);
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +67,7 @@ public class TelaCadastroDisciplina extends JFrame {
 
         // Label Título
         labelTitulo = new JLabel("CADASTRO DE DISCIPLINA");
-        labelTitulo.setBounds(30, 20, 300, 30);
+        labelTitulo.setBounds(130, 20, 300, 30);
         labelTitulo.setFont(new Font("calibri", Font.BOLD, 18));
 
         // Label e Campo Nome
@@ -139,7 +139,7 @@ public class TelaCadastroDisciplina extends JFrame {
         });
 
         btnDeletar = new JButton("Deletar");
-        btnDeletar.setBounds(390, 270, 100, 40);
+        btnDeletar.setBounds(150, 270, 100, 40);
         btnDeletar.setVisible(false);
 		btnDeletar.addActionListener(e -> {
 			int confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar a disciplina?", "Confirmação", JOptionPane.YES_NO_OPTION);
@@ -244,6 +244,7 @@ public class TelaCadastroDisciplina extends JFrame {
     	listaCurso.setModel(model);
     	
     	labelTitulo.setText("Editando a Disciplina Id " + disciplina.getId());
+    	btnLimpar.setVisible(false);
     	btnDeletar.setVisible(true);
     }
     

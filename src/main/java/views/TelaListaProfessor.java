@@ -45,7 +45,7 @@ public class TelaListaProfessor extends JFrame {
 	    setTitle("Lista de Professores");
 	    setResizable(false);
 	    setSize(600, 500);
-	    setLocation(100, 100);
+        setLocation(400, 250);
 	    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    
 	    menuCadastro = new JMenu("Cadastrar nova Disciplina");

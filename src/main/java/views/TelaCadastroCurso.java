@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -50,8 +49,8 @@ public class TelaCadastroCurso extends JFrame {
     public void initComponents() {
         setTitle("Gerenciamento de Cursos");
         setResizable(false);
-        setSize(500, 410);
-        setLocation(100, 100);
+        setSize(375, 410);
+        setLocation(400, 250);
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
@@ -64,60 +63,58 @@ public class TelaCadastroCurso extends JFrame {
         menuHome.add(menuItem);
 
         labelTitulo = new JLabel("CADASTRO DE CURSO");
-        labelTitulo.setLocation(35, 20);
+        labelTitulo.setLocation(85, 20); // Shifted by 30 pixels
         labelTitulo.setSize(250, 20);
         labelTitulo.setFont(new Font("calibri", Font.BOLD, 18));
 
         labelCurso = new JLabel("Curso");
-        labelCurso.setLocation(35, 65);
+        labelCurso.setLocation(65, 65); // Shifted by 30 pixels
         labelCurso.setSize(120, 20);
 
-        // Adding JLabel for Semestres
         labelSemestres = new JLabel("Semestres");
-        labelSemestres.setLocation(35, 145);
+        labelSemestres.setLocation(65, 145); // Shifted by 30 pixels
         labelSemestres.setSize(80, 20);
         
         labelPeriodo = new JLabel("Período");
-        labelPeriodo.setLocation(35, 190);  
+        labelPeriodo.setLocation(65, 190);  // Shifted by 30 pixels
         labelPeriodo.setSize(80, 20);
         
         labelErrorCurso = new JLabel("");
-        labelErrorCurso.setLocation(260, 90);
+        labelErrorCurso.setLocation(290, 90); // Shifted by 30 pixels
         labelErrorCurso.setSize(170, 30);
         labelErrorCurso.setForeground(Color.red);
         
         labelErrorSemestres = new JLabel("");
-        labelErrorSemestres.setLocation(260, 145);
+        labelErrorSemestres.setLocation(290, 145); // Shifted by 30 pixels
         labelErrorSemestres.setSize(170, 30);
         labelErrorSemestres.setForeground(Color.red);
         
         labelErrorPeriodo = new JLabel("");
-        labelErrorPeriodo.setLocation(310, 210);  
+        labelErrorPeriodo.setLocation(340, 210);  // Shifted by 30 pixels
         labelErrorPeriodo.setSize(120, 30);
         labelErrorPeriodo.setForeground(Color.red);
 
         txtCurso = new JTextField(""); 
-        txtCurso.setLocation(35, 90);
+        txtCurso.setLocation(65, 90); // Shifted by 30 pixels
         txtCurso.setSize(190, 30);
 
-        // Adding JComboBox for Semestres
         comboBoxSemestres = new JComboBox<>();
         for (int i = 1; i <= 10; i++) {  
             comboBoxSemestres.addItem(i);
         }
-        comboBoxSemestres.setLocation(125, 145);  
+        comboBoxSemestres.setLocation(155, 145);  // Shifted by 30 pixels
         comboBoxSemestres.setSize(70, 20);
 
         radioManha = new JRadioButton("Manhã", false);
-        radioManha.setLocation(35, 210);  
+        radioManha.setLocation(65, 210);  // Shifted by 30 pixels
         radioManha.setSize(80, 30);
 
         radioTarde = new JRadioButton("Tarde", false);
-        radioTarde.setLocation(115, 210);  
+        radioTarde.setLocation(145, 210);  // Shifted by 30 pixels
         radioTarde.setSize(70, 30);
 
         radioNoite = new JRadioButton("Noite", false);
-        radioNoite.setLocation(190, 210); 
+        radioNoite.setLocation(220, 210); // Shifted by 30 pixels
         radioNoite.setSize(80,30);
 
         groupPeriodo = new ButtonGroup();
@@ -155,8 +152,8 @@ public class TelaCadastroCurso extends JFrame {
         });
 
         btnDeletar = new JButton("Deletar");
+        btnDeletar.setLocation(130, 290);
         btnDeletar.setSize(100, 30);
-        btnDeletar.setLocation(370, 290);
         btnDeletar.setVisible(false);
         btnDeletar.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar o curso?", "Confirmação", JOptionPane.YES_NO_OPTION);
@@ -171,7 +168,6 @@ public class TelaCadastroCurso extends JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         });
-        
         menuBar = new JMenuBar();
         menuBar.add(menuHome);
         setJMenuBar(menuBar);
@@ -213,20 +209,15 @@ public class TelaCadastroCurso extends JFrame {
         
         try {
             cursoService.save(curso);
-            
             if (id == null) {
                 JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, "Curso atualizado com sucesso!");
             }
-            
             btnLimparActionListener(e);
             unloadCurso();
-        }
-
-        catch (ValidationException f) {
+        } catch (ValidationException f) {
             Set<String> errors = f.getErrors().keySet();
-            
             if (errors.contains("nome")) {
                 labelErrorCurso.setText(f.getErrors().get("nome"));
             }
@@ -236,9 +227,7 @@ public class TelaCadastroCurso extends JFrame {
             if (errors.contains("periodo")) {
                 labelErrorPeriodo.setText(f.getErrors().get("periodo"));
             }
-        }
-
-        catch (JpaException dbEx) {
+        } catch (JpaException dbEx) {
             JOptionPane.showMessageDialog(null, dbEx.getMessage());
         }
     }
@@ -254,8 +243,9 @@ public class TelaCadastroCurso extends JFrame {
     
     public void loadCurso(Curso curso) {
         labelTitulo.setText("Editando o curso ID " + curso.getId());
-        btnDeletar.setVisible(true);
-        
+        btnLimpar.setVisible(false); // Hide the Limpar button
+        btnDeletar.setVisible(true); // Show the Deletar button
+
         this.curso = curso;
         txtCurso.setText(curso.getNome());
         comboBoxSemestres.setSelectedItem(curso.getSemestres());
@@ -271,6 +261,7 @@ public class TelaCadastroCurso extends JFrame {
                 radioNoite.setSelected(true);
         }
     }
+
     
     public void unloadCurso() {
         this.curso = new Curso();
@@ -298,5 +289,4 @@ public class TelaCadastroCurso extends JFrame {
     public void setCursoService(CursoService cursoService) {
         this.cursoService = cursoService;
     }
-
 }

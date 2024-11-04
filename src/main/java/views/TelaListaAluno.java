@@ -32,7 +32,7 @@ public class TelaListaAluno extends JFrame {
 		setTitle("Lista de alunos");
 		setResizable(false);
 		setSize(600, 500);
-		setLocation(100, 100);
+		setLocation(400, 150);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		menuCadastro = new JMenu("Cadastrar novo Aluno");

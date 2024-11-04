@@ -25,10 +25,10 @@ public class TelaRegistro extends JFrame implements ActionListener {
         setSize(320, 180);;
         getContentPane().setLayout(null);
 
-        user = new JLabel("Novo Usuário");
+        user = new JLabel("Insira Usuário");
         user.setBounds(30, 20, 80, 25);
 
-        senha = new JLabel("Nova Senha");
+        senha = new JLabel("Insira Senha");
         senha.setBounds(30, 60, 80, 25);
 
         userTextField = new JTextField();

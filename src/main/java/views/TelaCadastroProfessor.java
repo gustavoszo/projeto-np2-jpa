@@ -58,8 +58,8 @@ public class TelaCadastroProfessor extends JFrame {
     public void initComponents() {
         setTitle("Cadastro de Professor");
         setResizable(false);
-        setSize(680, 580);
-        setLocation(100, 100);
+        setSize(580, 500);
+        setLocation(400, 250);
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,8 +72,8 @@ public class TelaCadastroProfessor extends JFrame {
         menuHome.add(menuItem);
 
         // Inicializando os JLabels
-        labelTitulo = new JLabel("Cadastro de professor");
-        labelTitulo.setBounds(30, 15, 250, 30);
+        labelTitulo = new JLabel("CADASTRO DE PROFESSOR");
+        labelTitulo.setBounds(180, 15, 250, 30);
         labelTitulo.setFont(new Font("Calibri", Font.BOLD, 18));
 
         labelNome = new JLabel("Nome:");
@@ -113,14 +113,8 @@ public class TelaCadastroProfessor extends JFrame {
         txtNome = new JTextField();
         txtNome.setBounds(150, 50, 300, 30);
 
-        txtCpf = new JTextField();
-        txtCpf.setBounds(150, 85, 300, 30);
-
         txtEmail = new JTextField();
         txtEmail.setBounds(150, 155, 300, 30);
-
-        txtCep = new JTextField();
-        txtCep.setBounds(150, 190, 150, 30);
 
         txtLogradouro = new JTextField();
         txtLogradouro.setBounds(150, 225, 300, 30);
@@ -136,6 +130,23 @@ public class TelaCadastroProfessor extends JFrame {
             MaskFormatter maskFormatter = new MaskFormatter("##/##/####");
             txtDtNascimento = new JFormattedTextField(maskFormatter);
             txtDtNascimento.setBounds(180, 120, 100, 30);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            MaskFormatter maskFormatterCpf = new MaskFormatter("###.###.###-##");
+            txtCpf = new JFormattedTextField(maskFormatterCpf);
+            txtCpf.setBounds(150, 85, 300, 30);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Inicializando o JFormattedTextField para o CEP
+        try {
+            MaskFormatter maskFormatterCep = new MaskFormatter("#####-###");
+            txtCep = new JFormattedTextField(maskFormatterCep);
+            txtCep.setBounds(150, 190, 150, 30);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -159,22 +170,22 @@ public class TelaCadastroProfessor extends JFrame {
 
         // Inicializando botões
         btnSalvar = new JButton("Salvar");
-        btnSalvar.setBounds(30, 480, 100, 40);
+        btnSalvar.setBounds(120, 390, 100, 40);
         btnSalvar.addActionListener(e -> salvar(e));
 
         btnLimpar = new JButton("Limpar");
-        btnLimpar.setBounds(150, 480, 100, 40);
+        btnLimpar.setBounds(240, 390, 100, 40);
         btnLimpar.addActionListener(e -> limpar());
 
         btnConsultar = new JButton("Consultar");
-        btnConsultar.setBounds(270, 480, 100, 40);
+        btnConsultar.setBounds(360, 390, 100, 40);
         btnConsultar.addActionListener(e -> {
             this.setVisible(false);
             new TelaListaProfessor(this).setVisible(true);
         });
 
         btnDeletar = new JButton("Deletar");
-        btnDeletar.setBounds(390, 480, 100, 40);
+        btnDeletar.setBounds(240, 390, 100, 40);
         btnDeletar.setVisible(false);
         btnDeletar.addActionListener(e -> {
         	if(txtCpf != null) {
@@ -190,6 +201,7 @@ public class TelaCadastroProfessor extends JFrame {
         		Professor professor = new Professor(txtCpf.getText(), txtNome.getText(), txtEmail.getText(), dataNasc, (Curso) comboBoxCursos.getSelectedItem(), (Disciplina) comboBoxDisciplinas.getSelectedItem(), endereco);
         		professorService.delete(professor);
         		btnDeletar.setVisible(false);
+        		btnLimpar.setVisible(true);
         		new TelaListaProfessor(this).setVisible(true);
         		this.setVisible(false);
         	}
@@ -325,6 +337,7 @@ public class TelaCadastroProfessor extends JFrame {
     	comboBoxDisciplinas.setSelectedItem(professor.getDisciplina());
     	
     	btnDeletar.setVisible(true);
+    	btnLimpar.setVisible(false);
     }
     
     private void limpar() {
